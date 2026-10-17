@@ -1,0 +1,43 @@
+/* Task-led reconciliation. Separate batch triage from individual documentary review. */
+.reconcile-mode-tabs{display:flex;gap:8px;padding:10px 20px;background:#0e1924;border-bottom:1px solid var(--line)}
+.reconcile-mode-tabs button{border:0;background:transparent;border-bottom:2px solid transparent;border-radius:0;color:var(--muted);padding:9px 14px}
+.reconcile-mode-tabs button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.reconcile-batch-workspace{flex:1;min-height:0;overflow:auto;padding:18px 22px 26px}
+.reconcile-batch-workspace[hidden],.reconcile-body[hidden]{display:none!important}
+.reconcile-batch-intro{display:flex;gap:14px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:15px}
+.reconcile-batch-intro h3{font-size:19px;margin:2px 0 6px}
+.reconcile-batch-intro p{color:var(--muted);margin:0;max-width:700px;font-size:12px}
+.reconcile-batch-intro button{flex-shrink:0;min-width:230px}
+.reconcile-batch-status{margin:13px 0;padding:11px 14px;border-radius:9px;background:#113029;border:1px solid #315e50;color:#b8e9d9;font-size:12px}
+.reconcile-batch-status.error{background:#392a1b;border-color:#8e6a31;color:#ffcc91}
+.reconcile-batch-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:12px 0}
+.reconcile-batch-summary[hidden]{display:none}
+.reconcile-batch-summary>div{padding:15px;border:1px solid var(--line);border-radius:11px;background:#142331}
+.reconcile-batch-summary strong{display:block;font-size:23px;font-variant-numeric:tabular-nums}
+.reconcile-batch-summary span{font-size:11px;color:var(--muted)}
+.reconcile-batch-actions{display:flex;gap:10px;align-items:center;margin:14px 0;flex-wrap:wrap}
+.reconcile-batch-actions label{margin:0}.reconcile-batch-actions select{max-width:310px}.reconcile-batch-actions button{margin-left:auto}
+.reconcile-batch-selection{display:flex;gap:15px;align-items:center;justify-content:space-between;margin:10px 0}
+.reconcile-batch-selection label{margin:0;display:flex;align-items:center;gap:6px}
+.reconcile-batch-selection input{width:auto}
+.reconcile-batch-guard{font-size:11px;color:#e8cda8;margin:8px 0 14px;line-height:1.55}
+.reconcile-batch-rows{display:grid;grid-template-columns:repeat(auto-fit,minmax(305px,1fr));gap:10px}
+.reconcile-batch-row{border:1px solid var(--line);border-radius:11px;background:#10202d;padding:14px;min-width:0}
+.batch-row-header{display:flex;gap:10px;align-items:flex-start}.batch-row-header input{margin-top:6px;width:auto}
+.batch-row-title{min-width:0;flex:1}.batch-row-title strong{font-size:13px;display:block}.batch-row-title small{font-size:10px;color:var(--muted);display:block;overflow-wrap:anywhere}
+.batch-kind{text-transform:capitalize;font-size:10px;color:var(--accent);border:1px solid #326b60;border-radius:12px;padding:4px 7px;white-space:nowrap}
+.reconcile-batch-row p{font-size:11px;line-height:1.6;color:#aabfc9;min-height:42px}
+.batch-row-foot{display:flex;align-items:center;gap:12px;justify-content:space-between;font-size:11px}
+.batch-row-foot button{font-size:11px}.batch-row-foot a{color:var(--accent)}
+.reconcile-batch-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;color:var(--muted);font-size:11px}
+.reconcile-batch-footer button{margin-left:8px}
+@media(max-width:720px){.reconcile-batch-intro{align-items:stretch;flex-direction:column}.reconcile-batch-summary{grid-template-columns:repeat(2,1fr)}.reconcile-batch-actions button{margin-left:0}.reconcile-batch-selection{align-items:flex-start;flex-direction:column}}
+
+.batch-documented-import{border:1px solid var(--line);border-radius:10px;background:#13212d;padding:13px;margin:20px 0}
+.batch-documented-import summary{cursor:pointer;font-weight:700;font-size:13px;color:#bfece1}
+.batch-documented-import p{font-size:12px;color:var(--muted);line-height:1.55}
+.batch-documented-import label{display:block;margin:10px 0 5px;font-size:12px}
+.batch-documented-import input[type=file]{width:100%;max-width:550px;font-size:12px}
+.batch-reviewed-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.batch-reviewed-attest{display:flex!important;gap:9px;align-items:flex-start}
+.batch-reviewed-attest input{width:auto}

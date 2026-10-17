@@ -1,0 +1,48 @@
+/* Skope 0.14.3: distinct identity review workspace; original graph remains untouched. */
+.reconciliation-modal{background:#0b1621;color:var(--fg);border:1px solid #41626a;border-radius:14px;padding:0;width:min(96vw,1540px);height:min(94dvh,1020px);max-width:none;max-height:none;box-shadow:0 20px 90px #000b;overflow:hidden}
+.reconciliation-modal::backdrop{background:#000c;backdrop-filter:blur(4px)}
+.reconcile-shell{height:100%;display:flex;flex-direction:column;min-height:0}
+.reconcile-head{padding:16px 22px;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;border-bottom:1px solid var(--line)}
+.reconcile-head h2{font-size:22px;margin:5px 0}
+.reconcile-head p{color:var(--muted);font-size:12px;margin:3px 0}
+.reconcile-toolbar{padding:13px 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:end;border-bottom:1px solid var(--line)}
+.reconcile-toolbar label{font-size:11px;min-width:260px}
+.reconcile-toolbar input{display:block;margin-top:6px;max-width:360px;width:100%}
+.reconcile-toolbar #reconcile-summary{font-size:12px;color:#9bd9cb;flex:1 1 280px;line-height:1.5}
+.reconcile-body{flex:1;min-height:0;display:grid;grid-template-columns:minmax(265px,360px) minmax(0,1fr)}
+.reconcile-list-pane{min-height:0;border-right:1px solid var(--line);display:flex;flex-direction:column;background:#0d1a26}
+.reconcile-filters{padding:14px;border-bottom:1px solid var(--line)}
+.reconcile-filters label{font-size:11px;display:block;margin-bottom:5px;color:var(--muted)}
+.reconcile-filters select,.reconcile-filters input{width:100%;margin-bottom:9px}
+.reconcile-people{flex:1;min-height:0;overflow-y:auto;padding:6px}
+.reconcile-person-item{display:block;width:100%;text-align:left;margin:3px 0;border:1px solid transparent;padding:11px;border-radius:9px;background:#132433;color:var(--fg);cursor:pointer;line-height:1.45}
+.reconcile-person-item:hover,.reconcile-person-item.selected{border-color:var(--accent);background:#1c323a}
+.reconcile-person-item strong{display:block;font-size:13px}.reconcile-person-item small{color:var(--muted);display:block;font-size:11px}
+.reconcile-pager{display:flex;align-items:center;gap:9px;justify-content:center;padding:10px;border-top:1px solid var(--line);font-size:11px}
+.reconcile-inspect{padding:20px 24px;overflow:auto;min-width:0}
+.reconcile-inspect h3{margin:0 0 8px;font-size:20px}
+.reconcile-inspect p{font-size:12px;line-height:1.55;color:var(--muted)}
+.reconcile-categories{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0}
+.reconcile-categories span{font-size:10px;border:1px solid #466571;border-radius:14px;padding:3px 8px;color:#afdcd7}
+.reconcile-sources{padding:10px 14px;background:#101f2a;border-radius:8px;font-size:12px;margin:12px 0}
+.reconcile-sources a{color:var(--accent);overflow-wrap:anywhere}
+.reconcile-candidates{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin:10px 0}
+.reconcile-candidate{border:1px solid var(--line);border-radius:10px;padding:12px;background:#122331;font-size:12px}
+.reconcile-candidate[aria-selected="true"]{border-color:var(--accent)}
+.reconcile-candidate strong{display:block;margin-bottom:6px}
+.reconcile-candidate p{margin:3px 0}
+.reconcile-candidate a{color:var(--accent)}
+.reconcile-candidate button{margin-top:10px}
+.reconcile-add{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin:12px 0}
+.reconcile-add label{font-size:11px}
+.reconcile-add input{max-width:150px}
+.reconcile-decision{border:1px solid var(--line);border-radius:9px;padding:15px;margin:14px 0;display:grid;gap:8px;max-width:850px}
+.reconcile-decision legend{font-weight:bold;color:var(--accent);padding:0 8px}
+.reconcile-decision label{font-size:12px}
+.reconcile-decision textarea,.reconcile-decision input[type="url"],.reconcile-decision select{width:100%}
+.reconcile-confirm-label{display:flex;align-items:flex-start;gap:8px;line-height:1.45}
+.reconcile-confirm-label input{margin-top:2px}
+.reconcile-decision button{justify-self:start}
+.reconcile-footer{padding:12px 20px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}
+#reconcile-message{overflow-wrap:anywhere}
+@media(max-width:800px){.reconcile-body{grid-template-columns:1fr;grid-template-rows:240px minmax(0,1fr)}.reconcile-list-pane{border-right:0;border-bottom:1px solid var(--line)}.reconcile-head{padding:10px}.reconcile-inspect{padding:14px}}

@@ -1,0 +1,108 @@
+{
+  "format": "skope.scope-campaign/1.0",
+  "requires": {
+    "skope_release_minimum": "0.13.20",
+    "backend": "EncyK compact SQLite",
+    "batch_collection_no_geographic_filter": true,
+    "batch_collection_no_external_convergence": true,
+    "preview_cap": 10000
+  },
+  "safety": {
+    "auto_run": false,
+    "write_kristal_canon": false,
+    "write_original_dump": false,
+    "new_fast_index": false,
+    "collect_qid_only": true
+  },
+  "id": "catho",
+  "title": "Kristal-Catho — doctrine and evidence",
+  "target_slug": "kristal-catho",
+  "state_ref": "urn:kristal:state:catho",
+  "scope_context": "Catholic/Christian semantic corpus, official-source provenance, dossiers and an independent persons/recognitions registry.",
+  "notes": [
+    "P279 Catholicism (Q1841) explores doctrinal descendants, not an authoritative Church classification.",
+    "P361 Catholic Church (Q9592) explores part-of relationships, not doctrinal authority.",
+    "P140 religion/worldview is a declared Wikidata attribute; it cannot prove institutional membership, beliefs or merit.",
+    "Respect the official pontiff/doctor and other curated lists already present in the Kristal; no automatic canon writes."
+  ],
+  "passes": [
+    {
+      "id": "doctrinal-concepts",
+      "title": "01 · Doctrinal concepts · P279 (recommended)",
+      "priority": "recommended",
+      "intent": "Explore Catholicism Q1841 subclasses to form a reviewable topical vocabulary, not a doctrinal judgment.",
+      "risk": "Many essential topics and historical positions will not be descendants of Catholicism via P279.",
+      "recipe": {
+        "root": "Q1841",
+        "default_depth": 4,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P279"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 8,
+          "min_support": 4,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    },
+    {
+      "id": "institutions",
+      "title": "02 · Church-related parts · P361",
+      "priority": "supporting",
+      "intent": "Inspect items marked as part of Catholic Church Q9592. Separately review affiliation and jurisdiction.",
+      "risk": "Part-of is not ecclesial authority or recognition; avoid promoting Wikidata claims directly.",
+      "recipe": {
+        "root": "Q9592",
+        "default_depth": 2,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P361"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 12,
+          "min_support": 5,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    },
+    {
+      "id": "religion-claims",
+      "title": "03 · Religion claims · P140 (advanced)",
+      "priority": "advanced",
+      "intent": "Inventory items whose P140 refers to Catholic Church Q9592; audit potential sources rather than treating as believers or saints.",
+      "risk": "Very broad/noisy. Limit 25,000 QIDs for first pass; a limit_reached run is incomplete and must be resumed with increased/unlimited cap for final inventory.",
+      "recipe": {
+        "root": "Q9592",
+        "default_depth": 1,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P140"
+        ],
+        "max_entities": 25000,
+        "convergence": {
+          "threshold_percent": 15,
+          "min_support": 8,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    }
+  ]
+}

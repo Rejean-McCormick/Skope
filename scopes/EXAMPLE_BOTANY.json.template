@@ -1,0 +1,28 @@
+{
+  "title": "Botany — Land plants, example scope",
+  "target_slug": "kristal-botany",
+  "intent": "Example single-pass scope: Embryophyta parent-taxon descendants, depth 7.",
+  "risk": "Can be large. Preview and confirm before starting a QID job.",
+  "recipe": {
+    "root": "Q192154",
+    "default_depth": 7,
+    "branches": {},
+    "direction": "in",
+    "allowed_properties": ["P171"],
+    "max_entities": 0,
+    "convergence": {
+      "threshold_percent": 14.6,
+      "min_support": 8,
+      "extra_depth": 0,
+      "include": []
+    },
+    "geography": {
+      "mode": "annotate",
+      "focus": "north-america",
+      "priority": "canada",
+      "region_qid": "Q49",
+      "priority_qid": "Q16",
+      "evidence_properties": ["P9714", "P183", "P2341"]
+    }
+  }
+}

@@ -1,0 +1,248 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Skope · Standalone Scope Library</title><link rel="stylesheet" href="/style.css"/><link rel="stylesheet" href="/wizard.css"/><link rel="stylesheet" href="/results.css"/><link rel="stylesheet" href="/extraction.css"/><link rel="stylesheet" href="/workspace-ui.css"/><link rel="stylesheet" href="/reconciliation.css"/><link rel="stylesheet" href="/reconciliation-batch.css"/><link rel="stylesheet" href="/research-ui.css"/></head><body>
+<header class="top"><div class="mark">◈</div><div><strong>SKOPE</strong><small><span id="skope-release-label">Standalone Skope</span></small></div><nav class="primary-nav" aria-label="Primary workspaces">
+ <button type="button" id="nav-scopes" class="nav-active">Scopes</button>
+ <button type="button" id="nav-identities">Identity batches</button>
+ <button type="button" id="nav-explorer">Graph explorer</button>
+ </nav><div class="topright"><button id="wizard-open" class="wizard-launch" type="button" aria-haspopup="dialog" aria-controls="skope-wizard">✦ Wizard</button><span id="dbstate">Local • SQLite</span><span class="pill">OFFLINE-FIRST</span></div></header>
+<main class="layout"><aside class="sidebar">
+<section id="kristal-selector" aria-labelledby="kristal-selector-heading">
+  <div id="kristal-selector-heading" class="eyebrow">01 · Kristal</div>
+  <p class="hint">Switch Kristals without restarting. No canon changes.</p>
+  <label for="kristal-select">Active workspace</label>
+  <select id="kristal-select"><option value="">No Kristal (generic exploration)</option></select>
+  <div class="scope-catalog-actions"><button id="kristal-activate" type="button">✓ Activate selected</button><button id="kristal-refresh" type="button">↻ Refresh Kristals</button></div>
+  <details id="kristal-add-details" class="inline-disclosure"><summary>+ Add unlisted Kristal folder</summary>
+    <label for="kristal-path">Local folder path</label>
+    <input id="kristal-path" type="text" placeholder="C:\mycode\Kristal\locals\A-Kristal-Catho" spellcheck="false" autocomplete="off" />
+    <button id="kristal-add" class="geo-inline-apply" type="button">+ Add folder &amp; activate</button>
+  </details>
+  <p id="kristal-status" class="hint" role="status">Discovering Kristal workspaces…</p>
+</section>
+<section id="scope-campaign-section" aria-labelledby="scope-campaign-heading">
+  <div id="scope-campaign-heading" class="eyebrow">02 · Scope catalog</div>
+  <p class="hint">Drop AI-generated <code>*.json</code> in <code>Skope/scopes/</code>; choose a profile below.</p>
+  <div class="scope-catalog-actions"><button id="scope-campaign-refresh" type="button">↻ Refresh profiles</button><button id="scope-campaign-copy-folder" type="button">Copy folder path</button><button id="scope-campaign-open-folder" type="button">Open scope folder</button></div>
+  <p id="scope-campaign-count" class="hint" aria-live="polite">Loading JSON scope profiles…</p>
+  <label for="scope-campaign-select">Scope profile</label><select id="scope-campaign-select" aria-describedby="scope-campaign-note"></select>
+  <div id="scope-pass-controls"><label for="scope-campaign-pass">Scope pass</label><select id="scope-campaign-pass" aria-describedby="scope-campaign-note"></select>
+    <button id="scope-campaign-apply" class="geo-inline-apply" type="button">✓ Apply scope settings</button></div>
+  <p id="scope-campaign-note" class="hint" role="status">Loading scope catalog…</p>
+  <div id="scope-campaign-errors" class="scope-catalog-errors" role="status" hidden></div>
+  <div id="author-campaign" class="author-campaign" hidden>
+    <div class="eyebrow">Recognised persons → works → original Wikidata</div>
+    <details class="inline-disclosure"><summary>Sources &amp; safety</summary><p class="hint">Read the existing Kristal-Catho roster (Doctors, Ratzinger Prize, Vatican institutional registers). Unambiguous people only; incoming P50 works. One explicit run performs source JSON extraction. No canon changes.</p></details>
+    <button id="author-preview" type="button">① Check roster / source selection</button>
+    <details id="author-roster-details" class="campaign-fold"><summary>Roster details</summary><pre id="author-preview-output" class="author-report" aria-live="polite">Check roster before starting.</pre></details>
+    <button id="author-start" type="button" class="primary" disabled>▶ Run complete author campaign</button>
+    <div class="scope-catalog-actions"><button id="author-pause" type="button" disabled>Ⅱ Pause</button><button id="author-resume" type="button" disabled>↻ Resume</button></div>
+    <button id="author-zip" type="button" disabled>↓ Download QID + provenance ZIP</button>
+    <div id="author-status-short" class="campaign-summary" role="status" aria-live="polite">No campaign running.</div><details id="author-progress-details" class="campaign-fold"><summary>Campaign log &amp; evidence path</summary><pre id="author-progress" class="author-report" aria-live="polite">No author campaign running.</pre></details>
+  </div>
+</section>
+<details id="scope-config-panel" class="sidebar-accordion">
+<summary><span class="accordion-title">01 · Scope configuration</span><span class="accordion-sub">Geography · root · traversal · convergence</span></summary>
+<div class="accordion-body">
+<section id="target-box"><div class="eyebrow">Target Kristal</div><strong id="targettitle">No Kristal selected</strong><p id="targetdesc" class="hint">Use Active Kristal above to select a workspace for specialised campaigns.</p><div id="geostate" class="geostate">Geography: not configured · Wizard → Geography</div></section>
+<section id="geo-inline" aria-labelledby="geo-heading">
+  <div id="geo-heading" class="eyebrow">Scope geography</div>
+  <p class="hint geo-help">Set a <strong>priority area</strong> and a larger <strong>secondary area</strong>. Both are saved in the scope recipe.</p>
+  <div class="geo-inline-field"><label for="geo-primary-ui">Priority area <small>Canada = Q16</small></label><input id="geo-primary-ui" type="text" value="Q16" maxlength="18" spellcheck="false" autocomplete="off" aria-describedby="geo-hint"/></div>
+  <div class="geo-inline-field"><label for="geo-secondary-ui">Secondary area <small>North America = Q49</small></label><input id="geo-secondary-ui" type="text" value="Q49" maxlength="18" spellcheck="false" autocomplete="off" aria-describedby="geo-hint"/></div>
+  <label for="geo-mode-ui">How to apply areas</label>
+  <select id="geo-mode-ui">
+    <option value="annotate">Prioritize, without excluding (recommended)</option>
+    <option value="documented_only">Documented geographic links only</option>
+    <option value="off">Disabled</option>
+  </select>
+  <button id="geo-apply-ui" class="geo-inline-apply" type="button">✓ Apply areas</button>
+  <p id="geo-hint" class="hint" aria-live="polite">Canada first, then North America. Wikidata links are not verified field observations.</p>
+</section>
+<section><div class="eyebrow">01 · Starting point</div><label for="search">Wikidata entity</label><div class="inline"><input id="search" placeholder="Name, alias or QID (e.g. Q42)" value=""/><button id="find" class="ghost">Search</button></div><div id="results"></div><div id="rootcard" class="rootcard"><span id="rootlabel">No entity selected</span><code id="rootqid">—</code><small>Exploration root</small></div></section>
+<section><div class="eyebrow">02 · Initial traversal</div><div class="setting"><label for="depth">Global depth</label><output id="depthval">6</output></div><input type="range" min="0" max="8" value="6" id="depth"/><div class="setting"><label for="direction">Relation direction</label><select id="direction"><option value="both">Incoming + outgoing</option><option value="out">Outgoing</option><option value="in">Incoming</option></select></div><label for="props">Follow properties (comma-separated PIDs; blank = all)</label><input id="props" placeholder="P31,P279,P361…" value="P171"/><div class="setting"><label for="budget">Target entity count</label><input type="number" id="budget" value="0" min="0" step="1000"/><p class="hint">0 = no total collection limit. The map previews at most 10,000 entities; full collection runs separately on disk and can be paused.</p></div><h3>Detected branches <span id="branchcount">0</span></h3><p class="hint">A branch is a property and direction at the first hop; Kristal semantic axes are a separate concept.</p><div id="branches" class="branchlist"><span class="muted">Branch discovery pending.</span></div></section>
+<section><div class="eyebrow">03 · External convergence <button type="button" class="info-help" id="convergence-help-open" aria-label="What is external convergence?" title="Explain external convergence">?</button></div><div class="setting"><label for="threshold">Threshold (%)</label><output id="thresholdval">14.6 %</output></div><input type="range" id="threshold" min="0.2" max="20" step="0.2" value="14.6"/><div class="setting"><label for="minsupport">Minimum connections</label><input type="number" id="minsupport" value="8" min="1" max="10000"/></div><div class="setting"><label for="extra">Extra depth</label><output id="extraval">0</output></div><input type="range" id="extra" min="0" max="4" step="1" value="0"/><p class="hint">A candidate is supported by distinct selected entities. Threshold = supported / selected entities. Suggestions require review; they are not added automatically.</p></section>
+</div></details>
+<details id="scope-acquisition-panel" class="sidebar-accordion">
+<summary><span class="accordion-title">02 · Data acquisition</span><span class="accordion-sub">Batch QIDs · full Wikidata records</span></summary>
+<div class="accordion-body">
+<section id="large-scope"><div class="eyebrow">04 · Batch QID inventory</div>
+  <p class="hint">The full traversal reads the index on D: and writes only working QIDs under <code>30_working/skope-large-scopes</code>. No source evidence or Kristal changes. Canada/North America remain review priorities; geographic filtering and external convergence are NOT applied during this QID inventory.</p>
+  <button id="large-start" type="button">▶ Start batch QID collection</button>
+  <button id="large-pause" type="button">Ⅱ Pause collection</button>
+  <button id="large-results" type="button" disabled>📦 View Results</button>
+  <div id="large-progress" class="hint" aria-live="polite">No collection started</div>
+</section>
+<section id="full-extraction" aria-labelledby="full-extraction-heading">
+  <div id="full-extraction-heading" class="eyebrow">05 · FULL WIKIDATA RECORDS</div>
+  <p class="hint">Turn a <b>completed QID inventory</b> into complete, lossless source JSON. Uses the verified Wikidata dump and existing random-access index on D:. <b>No full-dump scan, no new index, no Kristal canon write.</b></p>
+  <label for="extract-profile">Full-record extraction profile (Skope JSON)</label>
+  <select id="extract-profile"></select>
+  <label for="extract-source">Completed QID job ID</label>
+  <input id="extract-source" placeholder="32-character QID collection job ID" autocomplete="off" spellcheck="false" />
+  <div class="extraction-actions">
+    <button id="extract-preflight" type="button">Check sources</button>
+    <button id="extract-start" type="button" disabled>▶ Extract Full Wikidata Records</button>
+    <button id="extract-view" type="button" disabled>View extraction</button>
+  </div>
+  <p id="extract-summary" class="hint" role="status" aria-live="polite">Choose a profile and check sources before starting.</p>
+</section>
+</div></details>
+<div class="actions"><button id="preview" class="primary">↻ Calculate scope</button><button id="export" class="secondary">↓ Export Skope proposal</button><div id="status" aria-live="polite"></div></div>
+</aside><section class="workspace-home" aria-labelledby="workspace-home-title">
+  <div class="workspace-hero">
+    <div class="eyebrow">RESEARCH WORKFLOW · SKOPE STANDALONE</div>
+    <h1 id="workspace-home-title">Your research workspace</h1>
+    <p>Select a Kristal and JSON scope, run the relevant workflow, then inspect the <strong>verified status</strong> and results. Graph exploration and identity reconciliation are separate workspaces.</p>
+    <div class="research-next" role="status"><span>RECOMMENDED NEXT STEP</span><strong id="research-next-label">Review Catho unresolved identities in a batch</strong><small id="research-next-detail">Existing source evidence is preserved. No new acquisition is required to rank the candidates.</small></div>
+    <div class="home-primary-actions">
+      <button id="explorer-open" type="button" aria-haspopup="dialog" aria-controls="scope-explorer-modal">◈ Open Scope Explorer</button>
+      <button id="reconcile-open" class="primary" type="button" aria-haspopup="dialog" aria-controls="reconciliation-modal">Batch identity reconciliation</button>
+      <button id="home-config-open" type="button">Scope settings</button>
+    </div>
+  </div>
+  <div class="workspace-cards">
+    <div class="workspace-card"><div class="eyebrow">ACTIVE WORKSPACE</div><strong id="home-kristal">No Kristal active</strong><small>Selected in the left panel</small></div>
+    <div class="workspace-card"><div class="eyebrow">SCOPE CATALOG</div><strong id="home-profile">Select a JSON scope</strong><small>Profiles are loaded from the scopes folder</small></div>
+    <div class="workspace-card"><div class="eyebrow">GRAPH PREVIEW</div><strong id="home-graph-count">Not calculated</strong><small>Read-only compact index preview, not a full-dump graph</small></div>
+    <div class="workspace-card"><div class="eyebrow">LAST AUTHOR CAMPAIGN</div><strong id="home-campaign">No campaign loaded</strong><small>Existing evidence is preserved; no automatic rerun</small></div>
+  </div>
+  <p class="footnote">Preview and identity matching are non-canonical. Existing author campaigns, full JSON evidence and QID jobs are not changed by this layout.</p>
+</section></main>
+<dialog id="reconciliation-modal" class="reconciliation-modal" aria-labelledby="reconcile-title">
+  <div class="reconcile-shell">
+    <header class="reconcile-head">
+      <div><div class="eyebrow">SKOPE · IDENTITY WORKSPACE</div><h2 id="reconcile-title">Batch Identity Reconciliation</h2><p>Analyze → inspect ranked suggestions → stage proposals → export evidence. No automatic identity confirmation.</p></div>
+      <button id="reconcile-close" type="button" aria-label="Close Identity Reconciliation">✕ Close</button>
+    </header>
+    <div class="reconcile-toolbar">
+      <label>Campaign job <input id="reconcile-job" maxlength="32" placeholder="Most recent completed Catho campaign" spellcheck="false"/></label>
+      <button id="reconcile-load" type="button" class="primary">Load reviews</button>
+      <button id="reconcile-export" type="button" disabled>↓ Export decisions ZIP</button>
+      <span id="reconcile-summary" aria-live="polite">Load the latest author campaign to begin.</span>
+    </div>
+    <div class="reconcile-mode-tabs" role="tablist" aria-label="Reconciliation workflow">
+       <button type="button" role="tab" id="reconcile-tab-batch" aria-selected="true">01 · Batch analysis</button>
+       <button type="button" role="tab" id="reconcile-tab-individual" aria-selected="false">02 · Individual evidence review</button>
+    </div>
+    <section id="reconcile-batch-workspace" class="reconcile-batch-workspace" aria-label="Batch analysis and proposals">
+      <div class="reconcile-batch-intro"><div><h3>Analyze the whole unresolved roster</h3><p>Offline matching and context ranking. A score is a research hint, <strong>not an official identity decision</strong>.</p></div><button type="button" id="reconcile-batch-run" class="primary">Analyze unresolved identities</button></div>
+      <div id="reconcile-batch-status" class="reconcile-batch-status" role="status" aria-live="polite">No batch analysis requested.</div>
+      <div class="reconcile-batch-summary" id="reconcile-batch-summary" hidden>
+         <div><strong id="batch-total">—</strong><span>Analyzed</span></div>
+         <div><strong id="batch-suggested">—</strong><span>Ranked suggestions</span></div>
+         <div><strong id="batch-review">—</strong><span>Needs review</span></div>
+         <div><strong id="batch-unmatched">—</strong><span>No viable candidate</span></div>
+      </div>
+      <div class="reconcile-batch-actions">
+         <label for="reconcile-batch-filter">Results filter</label>
+         <select id="reconcile-batch-filter"><option value="all">All analyzed cases</option><option value="suggested">Ranked suggestions</option><option value="needs_review">Ambiguous / context conflict</option><option value="no_viable_candidate">No viable candidate</option></select>
+         <button type="button" id="reconcile-batch-export" disabled>Export batch CSV + evidence ZIP</button>
+      </div>
+      <div class="reconcile-batch-selection"><label><input type="checkbox" id="reconcile-batch-checkall"/> Select visible ranked suggestions</label>
+         <button type="button" id="reconcile-batch-stage" disabled>Stage selected as unverified proposals</button></div>
+      <p class="reconcile-batch-guard">Staging creates a separate unverified research shortlist. It never confirms identity, approves doctrine, starts extraction, or modifies a Kristal. Documentary confirmation remains a separate step.</p>
+      <div id="reconcile-batch-rows" class="reconcile-batch-rows" role="list" aria-label="Batch identity results"></div>
+      <details class="batch-documented-import">
+        <summary>Confirm multiple independently documented identities (reviewed CSV)</summary>
+        <p>Export the batch ZIP, complete <code>human-review-template.csv</code> with a documentary identity URL and justification per row, set <code>review_decision=confirm</code>, then import it here. This is a bulk reviewer-attested decision, not an AI automatic confirmation.</p>
+        <label for="batch-reviewed-file">Reviewed CSV (max 55 KB)</label>
+        <input id="batch-reviewed-file" type="file" accept=".csv,text/csv"/>
+        <div class="batch-reviewed-actions"><button type="button" id="batch-reviewed-validate">Validate CSV — dry run</button>
+          <button type="button" id="batch-reviewed-commit" disabled>Confirm documented identities in batch</button></div>
+        <label class="batch-reviewed-attest"><input id="batch-reviewed-attestation" type="checkbox"/> I have verified the documentary identity sources for all marked rows. Skope has not accessed or verified these webpages.</label>
+        <p id="batch-reviewed-status" role="status" aria-live="polite">No reviewed CSV loaded.</p>
+      </details>
+      <div class="reconcile-batch-footer"><span id="reconcile-batch-page">0 / 0</span><div><button type="button" id="reconcile-batch-prev">← Previous</button><button type="button" id="reconcile-batch-next">Next →</button></div></div>
+    </section>
+    <div class="reconcile-body" id="reconcile-individual-workspace" hidden>
+      <aside class="reconcile-list-pane">
+        <div class="reconcile-filters"><label for="reconcile-filter">Review queue</label><select id="reconcile-filter"><option value="priority">Priority: Doctors &amp; Ratzinger</option><option value="pending">All pending</option><option value="all">All 161 cases</option><option value="confirmed">Confirmed</option><option value="deferred">Deferred</option><option value="no_reliable_match">No reliable match yet</option></select>
+          <label for="reconcile-search">Find person or QID</label><input id="reconcile-search" placeholder="Name, person ID or QID" autocomplete="off"/></div>
+        <div id="reconcile-people" class="reconcile-people" role="listbox" aria-label="Unresolved people"></div>
+        <div class="reconcile-pager"><button id="reconcile-prev" type="button">←</button><span id="reconcile-page">0 / 0</span><button id="reconcile-next" type="button">→</button></div>
+      </aside>
+      <section class="reconcile-inspect" aria-live="polite">
+        <div id="reconcile-person"><h3>Select a person</h3><p>Only candidates present in Wikidata can be considered. Human review and documentary evidence are required.</p></div>
+        <div id="reconcile-candidates" class="reconcile-candidates"></div>
+        <div class="reconcile-add"><label for="reconcile-qid">Candidate QID</label><input id="reconcile-qid" placeholder="Q…" spellcheck="false" autocomplete="off"/><button id="reconcile-lookup" type="button">Inspect QID</button></div>
+        <fieldset class="reconcile-decision"><legend>Human decision</legend>
+          <label for="reconcile-action">Decision</label><select id="reconcile-action"><option value="deferred">Defer — further research</option><option value="confirmed">Confirm documented identity</option><option value="no_reliable_match">No reliable match currently</option><option value="clear">Clear previous decision</option></select>
+          <label for="reconcile-note">Reason / evidence assessment</label><textarea id="reconcile-note" rows="3" placeholder="Explain why the identity is or is not supported."></textarea>
+          <label for="reconcile-url">Documentary source URL (required for confirmation)</label><input id="reconcile-url" type="url" placeholder="https://…" spellcheck="false"/>
+          <label class="reconcile-confirm-label"><input id="reconcile-confirm" type="checkbox"/> I have checked the documentary evidence and want to record this decision.</label>
+          <button id="reconcile-save" type="button" class="primary" disabled>Save reviewed decision</button>
+        </fieldset>
+        <p id="reconcile-message" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+    <footer class="reconcile-footer">Wikidata QIDs, human status and names are discovery hints, not proof of identity. Decisions are recorded separately with an audit trail; re-extraction requires a separate explicit operation.</footer>
+  </div>
+</dialog>
+<dialog id="scope-explorer-modal" class="scope-explorer-modal" aria-labelledby="projecttitle">
+  <div class="scope-explorer-shell">
+    <div class="scope-explorer-bar"><div><span class="eyebrow">SKOPE · VISUAL RESEARCH</span><strong>Scope Explorer</strong></div><div class="scope-explorer-actions"><button id="explorer-recalculate" type="button">↻ Calculate scope</button><button id="explorer-close" type="button" aria-label="Close Scope Explorer">✕ Close</button></div></div>
+    <div class="scope-explorer-scroll">
+<section class="mainview"><div class="viewheader"><div><div class="eyebrow">WORKING SCOPE</div><h1 id="projecttitle">Wikidata scope explorer</h1><p id="projectsubtitle">Select a root or load a project recipe.</p></div><span class="tag">WORKING · NON-CANONICAL</span></div><div class="kpis"><div><b id="kpinodes">—</b><span>Entities</span></div><div><b id="kpiedges">—</b><span>Aggregated relations</span></div><div><b id="kpicands">—</b><span>Candidates</span></div><div><b id="kpiwarn">—</b><span>Truncated</span></div></div><div id="geocounts" class="geocounts hidden" aria-live="polite"></div><div class="tabs"><button data-tab="graph" class="active">Graph</button><button data-tab="nodes">Entities</button><button data-tab="candidates">Convergence</button><button data-tab="manifest">Manifest</button></div><div id="pane-graph" class="pane"><div class="panelhead"><strong>Relation preview</strong><span id="graphinfo">Calculate to display</span></div><div id="density-controls" class="density-controls">
+<div><label for="density-low">Medium density from <output id="density-low-value">3</output> neighbors</label><input id="density-low" type="range" min="1" max="100" value="3"/></div>
+<div><label for="density-high">High density from <output id="density-high-value">10</output> neighbors</label><input id="density-high" type="range" min="2" max="100" value="10"/></div>
+<div><label for="density-min">Show from <output id="density-min-value">0</output> neighbors</label><input id="density-min" type="range" min="0" max="100" value="0"/></div>
+<div><label for="density-opacity">Background opacity <output id="density-opacity-value">25</output> %</label><input id="density-opacity" type="range" min="5" max="80" value="25"/></div>
+<div><label for="density-labels">Labels <output id="density-labels-value">12</output></label><input id="density-labels" type="range" min="0" max="40" value="12"/></div>
+<div><label for="density-zoom">Magnifier zoom ×<output id="density-zoom-value">2</output></label><input id="density-zoom" type="range" min="1" max="3" step="0.1" value="2"/></div>
+</div>
+<div id="density-legend" class="density-legend">
+<label><input id="density-show-2" type="checkbox" checked/><span id="density-swatch-2">●</span> Dense · background <b id="density-count-2">0</b><input aria-label="Dense network hue" id="density-hue-2" type="range" min="0" max="359" value="220"/></label>
+<label><input id="density-show-1" type="checkbox" checked/><span id="density-swatch-1">●</span> Medium <b id="density-count-1">0</b><input aria-label="Medium network hue" id="density-hue-1" type="range" min="0" max="359" value="165"/></label>
+<label><input id="density-show-0" type="checkbox" checked/><span id="density-swatch-0">●</span> Sparse · foreground <b id="density-count-0">0</b><input aria-label="Sparse network hue" id="density-hue-0" type="range" min="0" max="359" value="35"/></label>
+</div>
+<p class="hint">Densité locale = neighbors distincts dans ce rapport, tous types de liens confondus. Traits classés selon leur extrémité la plus connectée. Teintes réglables ci-dessus. Les filtres visuels ne changent pas le scope.</p>
+<div class="density-stage"><div id="density-detail" hidden><strong id="density-title"></strong><p id="density-summary" class="hint"></p><svg id="density-lens" viewBox="0 0 1000 340" role="img" aria-label="Magnified neighborhood with entity names"></svg></div><canvas id="graph" width="1200" height="650" role="img" aria-label="Three connection-density layers; inspect details using the Inspect field or Entities tab"></canvas><div id="density-empty">Calculate the scope to display the network.</div></div>
+<div class="density-inspect"><label for="density-pick">Inspect an entity (name or QID)</label><input id="density-pick" list="density-options" placeholder="Hover over the map or enter an entity"/><datalist id="density-options"></datalist><button id="density-unpin" type="button">Unpin magnifier</button><button id="density-reset" type="button">Reset view</button></div>
+
+<p class="hint">Hover: neighborhood magnifier · Click: pin magnifier · Escape: unpin. Labels show the most connected entities. Layout is schematic, not geographic. All report nodes are included; truncated reports remain incomplete.</p></div><div id="pane-nodes" class="pane hidden"><div class="panelhead"><strong>Scope entities</strong><span>Inspectable inclusion reasons</span></div><div id="nodelist" class="items"></div></div><div id="pane-candidates" class="pane hidden"><div class="panelhead"><strong>Detected convergence</strong><span>Explicit decisions · recalculate after selection</span></div><div id="candidates" class="items"></div></div><div id="pane-manifest" class="pane hidden"><div class="panelhead"><strong>Scope recipe</strong><button id="copy" class="ghost">Copy JSON</button></div><pre id="manifest"></pre></div><div class="footnote">Wikidata compact index is read-only. This aggregated graph is not source evidence; selection, collection and publication require review.</div></section>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="convergence-help" class="result-dialog" aria-labelledby="convergence-help-title">
+  <div class="result-shell"><div class="result-head"><h2 id="convergence-help-title">What is External Convergence?</h2><button id="convergence-help-close" type="button" aria-label="Close">✕</button></div>
+  <p>After the initial traversal, Skope looks for <b>outside entities</b> connected to several entities already in your scope. They may be relevant, but are <b>suggestions, not automatic additions</b>.</p>
+  <div class="convergence-example"><span>Selected taxa: 100</span><span>→</span><span>Candidate linked to 8 of them</span><span>→</span><b>8% support</b></div>
+  <p><b>Threshold:</b> minimum percentage of distinct selected entities that support the outside candidate. <b>Minimum connections:</b> minimum number of distinct selected entities, regardless of percentage.</p>
+  <p><b>Extra depth:</b> how far to traverse after explicitly accepting a candidate; <b>0</b> means no further traversal.</p>
+  <p class="result-caveat">External convergence is NOT calculated during the massive batch QID inventory. Canada/North America preferences are also NOT used to filter that mass run.</p>
+  <button id="convergence-help-done" type="button" class="primary">Got it</button></div>
+</dialog>
+<dialog id="large-job-modal" class="result-dialog" aria-labelledby="large-dialog-title">
+  <div class="result-shell">
+    <div class="result-head"><div><div class="eyebrow">SKOPE · BATCH COLLECTION</div><h2 id="large-dialog-title">Collection progress</h2></div><button id="large-dialog-close" aria-label="Close progress window" type="button">✕</button></div>
+    <p id="large-dialog-state" class="result-state" role="status" aria-live="polite">Preparing…</p>
+    <progress id="large-dialog-progress" max="100" value="0"></progress>
+    <div id="large-dialog-bar-caption" class="hint">Progress by completed traversal, not a percentage of all plant species.</div>
+    <div class="result-stats"><div><strong id="large-dialog-selected">0</strong><small>QIDs selected</small></div><div><strong id="large-dialog-expanded">0</strong><small>Expanded nodes</small></div><div><strong id="large-dialog-pending">0</strong><small>Pending expansions</small></div></div>
+    <p id="large-dialog-message" class="hint"></p>
+    <p class="result-caveat">This collects QIDs only. No original Wikidata statements or source references, no geographic filter, no external convergence, and no Kristal modification. “Completed” refers to the requested root, depth and properties, not all plant species.</p>
+    <div class="result-actions"><button id="large-dialog-pause">Pause</button><button id="large-dialog-resume">Resume</button><button id="large-dialog-open" disabled>Open Results folder</button><button id="large-dialog-download" disabled>Download Results ZIP</button><button id="large-dialog-copy" disabled>Copy ZIP File to Clipboard</button></div>
+    <p id="large-dialog-feedback" class="hint" role="status" aria-live="polite"></p>
+  </div>
+</dialog>
+<dialog id="extract-modal" class="result-dialog" aria-labelledby="extract-dialog-title">
+  <div class="result-shell">
+    <div class="result-head"><div><div class="eyebrow">SKOPE · ORIGINAL WIKIDATA</div><h2 id="extract-dialog-title">Full-record extraction</h2></div><button id="extract-close" type="button" aria-label="Close extraction progress">✕</button></div>
+    <p id="extract-dialog-state" class="result-state" aria-live="polite">Ready</p>
+    <progress id="extract-progress" value="0" max="100"></progress>
+    <div class="result-stats"><div><strong id="extract-done">0</strong><small>Full JSON records saved</small></div><div><strong id="extract-total">0</strong><small>QIDs requested</small></div><div><strong id="extract-batches">0</strong><small>Batches committed</small></div></div>
+    <p id="extract-message" class="hint" role="status"></p>
+    <p class="result-caveat">Each completed batch retains Wikidata claims, references, qualifiers, aliases and sitelinks. Canada/North America are annotation priorities, not occurrence proofs. Medical efficacy is never inferred. Promotion to Kristal requires separate review.</p>
+    <div class="result-actions"><button id="extract-pause">Pause</button><button id="extract-resume">Resume</button><button id="extract-open" disabled>Open Evidence Folder</button><button id="extract-copy-path" disabled>Copy Evidence Path</button></div>
+    <p id="extract-feedback" class="hint" role="status" aria-live="polite"></p>
+  </div>
+</dialog>
+<dialog id="skope-wizard" class="wizard-dialog" aria-labelledby="wiz-title">
+<div class="wizard-shell">
+  <div class="wizard-head"><div><div class="wizard-eyebrow">SKOPE · CONFIGURATION WIZARD</div><h2 id="wiz-title">Understand and adjust the scope</h2><p>Recommendations only change settings when you click Apply.</p></div><button id="wizard-close" class="wizard-close" type="button" aria-label="Close wizard">✕</button></div>
+  <div class="wizard-toprow"><div><label for="wizard-profile">Suggested settings profile</label><select id="wizard-profile"></select></div><div id="wizard-target" class="wizard-target"></div></div>
+  <nav id="wizard-steps" class="wizard-steps" aria-label="Wizard steps"></nav>
+  <div id="wizard-view" class="wizard-content" aria-live="polite"></div>
+  <div class="wizard-foot"><span id="wizard-status" role="status" aria-live="polite">Ready — no changes made.</span><div class="wizard-foot-buttons"><button id="wizard-prev" type="button">← Back</button><button id="wizard-next" class="primary" type="button">Next →</button></div></div>
+</div></dialog>
+<script src="/density.js"></script><script src="/app.js"></script><script src="/author-campaign.js"></script><script src="/wizard.js"></script><script src="/results.js"></script><script src="/extraction.js"></script><script src="/workspace-ui.js"></script><script src="/reconciliation.js"></script><script src="/reconciliation-batch.js"></script><script src="/research-ui.js"></script></body></html>

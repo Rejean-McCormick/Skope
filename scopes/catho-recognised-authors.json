@@ -1,0 +1,36 @@
+{
+  "format": "skope.author-works-campaign/1.0",
+  "id": "catho-recognised-authors",
+  "title": "Kristal-Catho — Vatican-recognised authors and works · complete campaign",
+  "target_slug": "kristal-catho",
+  "scope_context": "Read the existing Catholic recognition roster; identify people in local Wikidata; find P50 authored works; extract all resolved full Wikidata records with provenance. No false claims of Catholicity or magisterial endorsement.",
+  "notes": [
+    "One-click campaign: persons -> safe QID identity resolution -> incoming P50 works -> deduplicated inventory -> full source JSON.",
+    "Primary: 38 Doctors of the Church and Ratzinger Prize laureates. Announced 2026 prize is not treated as already conferred.",
+    "Supporting: members of the International Theological Commission and Pontifical Academy of Saint Thomas (historical membership; not universal doctrinal endorsement).",
+    "Popes are deliberately excluded by default: pontifical office is a distinct category, not proof of individual text authorship.",
+    "Not all prize laureates are Catholics. Names that are absent or ambiguous will remain unresolved and get an explicit report.",
+    "No geographic exclusion, no automated doctrinal claims, no changes to the Kristal canon."
+  ],
+  "orchestration": {
+    "kind": "recognised_persons_to_authored_works",
+    "person_roster": "canon/domain/personnes-reconnaissances.json",
+    "include_categories": [
+      "docteur_eglise",
+      "laureat_prix_ratzinger",
+      "prix_ratzinger_annonce_non_remis",
+      "commission_theologique_internationale",
+      "academie_pontificale_saint_thomas"
+    ],
+    "work_property": "P50",
+    "extraction_profile": "catho-recognised-authors-full-wikidata",
+    "auto_full_records": true
+  },
+  "safety": {
+    "auto_run": false,
+    "write_kristal_canon": false,
+    "write_original_dump": false,
+    "new_fast_index": false,
+    "collect_qid_only": true
+  }
+}

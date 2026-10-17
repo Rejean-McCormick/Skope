@@ -1,0 +1,99 @@
+{
+  "format": "skope.scope-campaign/1.0",
+  "requires": {
+    "skope_release_minimum": "0.13.20",
+    "backend": "EncyK compact SQLite",
+    "batch_collection_no_geographic_filter": true,
+    "batch_collection_no_external_convergence": true,
+    "preview_cap": 10000
+  },
+  "safety": {
+    "auto_run": false,
+    "write_kristal_canon": false,
+    "write_original_dump": false,
+    "new_fast_index": false,
+    "collect_qid_only": true
+  },
+  "id": "botany",
+  "title": "Kristal-Botany — land plants",
+  "target_slug": "kristal-botany",
+  "state_ref": "urn:kristal:state:botany",
+  "scope_context": "Embryophyta anatomy, physiology, reproduction and taxonomy; initial Wikidata pass collects taxonomic entities only.",
+  "notes": [
+    "Previous depth-6 collection: 16,299 QIDs; depth 7 probes the next generation, not global species completeness.",
+    "Canada Q16 / North America Q49 annotate only; not a filter or reliable occurrence proof.",
+    "Do not repeat depth 6 or overwrite the 16,299 full JSON records."
+  ],
+  "passes": [
+    {
+      "id": "taxonomy-depth-7",
+      "title": "01 · Taxonomy · next depth 7 (recommended)",
+      "priority": "recommended",
+      "intent": "Grow the existing Embryophyta Q192154 P171 descendant scope by one taxonomic level; unlimited QIDs, manual start, pause supported.",
+      "risk": "Potentially large; use preview, then explicit start. A separate job does NOT incrementally reuse the earlier 16,299 QIDs.",
+      "recipe": {
+        "root": "Q192154",
+        "default_depth": 7,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P171"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 14.6,
+          "min_support": 8,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "annotate",
+          "focus": "north-america",
+          "priority": "canada",
+          "region_qid": "Q49",
+          "priority_qid": "Q16",
+          "evidence_properties": [
+            "P9714",
+            "P183",
+            "P2341"
+          ]
+        }
+      }
+    },
+    {
+      "id": "taxonomy-depth-8",
+      "title": "02 · Taxonomy · depth 8 (defer)",
+      "priority": "advanced",
+      "intent": "Deeper Embryophyta descendants for a later run, after measuring depth-7 cost and coverage.",
+      "risk": "High volume and potentially long run. Not automatic; earlier QIDs may be collected again as part of a new inventory.",
+      "recipe": {
+        "root": "Q192154",
+        "default_depth": 8,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P171"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 14.6,
+          "min_support": 8,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "annotate",
+          "focus": "north-america",
+          "priority": "canada",
+          "region_qid": "Q49",
+          "priority_qid": "Q16",
+          "evidence_properties": [
+            "P9714",
+            "P183",
+            "P2341"
+          ]
+        }
+      }
+    }
+  ]
+}

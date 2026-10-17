@@ -1,0 +1,215 @@
+{
+  "format": "skope.scope-campaign/1.0",
+  "id": "catho-authors-persons",
+  "title": "Kristal-Catho — Authors, persons and works",
+  "target_slug": "kristal-catho",
+  "state_ref": "urn:kristal:state:catho",
+  "scope_context": "Person-first evidence discovery for Christian and Catholic intellectual history. Build author/person roster, then link works, claims, events, institutions and sources with explicit attribution. This is not an official canon.",
+  "requires": {
+    "skope_release_minimum": "0.13.21",
+    "backend": "EncyK compact SQLite",
+    "preview_cap": 10000,
+    "batch_collection_no_geographic_filter": true,
+    "batch_collection_no_external_convergence": true
+  },
+  "safety": {
+    "auto_run": false,
+    "write_kristal_canon": false,
+    "write_original_dump": false,
+    "new_fast_index": false,
+    "collect_qid_only": true
+  },
+  "notes": [
+    "Use this as the first Kristal-Catho campaign; keep existing catho.json for doctrinal and institutional follow-up.",
+    "Every pass is a separate traversal and a separate QID job. Skope does not automatically union or deduplicate jobs across passes.",
+    "Person discovery is broad and incomplete: P106/P39 omissions and other religions require provenance-aware classification after full-record extraction.",
+    "Incoming P50 from a single author discovers works citing that author. There is no current batch join of all discovered people to all their authored works.",
+    "For historical/anonymous/collective works, distinguish author, attributed author, compiler, ecclesiastical issuer and institutional authority; verify original editions and source documents.",
+    "Wikidata claims are secondary discovery evidence, not validation of authorship or Catholic ecclesiastical authority.",
+    "No geographic filter: universal historical subject; Quebec/Canada can be separately prioritized during corpus enrichment."
+  ],
+  "passes": [
+    {
+      "id": "theologians",
+      "title": "01 · Theologians / potential authors · P106",
+      "priority": "recommended",
+      "intent": "Find people whose Wikidata occupation is theologian. Primary discovery population for intellectual authorship.",
+      "risk": "Includes non-Catholic theologians; many Catholic thinkers lack P106=theologian. Classify by period, tradition and provenance after extraction.",
+      "recipe": {
+        "root": "Q1234713",
+        "default_depth": 1,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P106"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 10,
+          "min_support": 5,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    },
+    {
+      "id": "catholic-priests",
+      "title": "02 · Catholic priests · P106",
+      "priority": "recommended",
+      "intent": "Find Catholic priests; capture clerical authors and commentators who may not be registered as theologians.",
+      "risk": "An ordained priest is not automatically a writer; occupation values vary (Latin Catholic priest and others) so this is not a complete clergy census.",
+      "recipe": {
+        "root": "Q250867",
+        "default_depth": 1,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P106"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 10,
+          "min_support": 5,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    },
+    {
+      "id": "religious-writers",
+      "title": "03 · Religious writers · P106",
+      "priority": "supporting",
+      "intent": "Find religious authors who are recorded primarily as writers rather than theologians.",
+      "risk": "Cross-religion population; do not infer Catholic affiliation from occupation. Do not use this pass as a canon filter.",
+      "recipe": {
+        "root": "Q24262594",
+        "default_depth": 1,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P106"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 10,
+          "min_support": 5,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    },
+    {
+      "id": "catholic-bishops",
+      "title": "04 · Catholic bishops · P106",
+      "priority": "supporting",
+      "intent": "Find bishops for episcopal letters, teaching, diocesan material and early authors.",
+      "risk": "Coverage differs where the person has a more specific Latin/rite occupation or only position held P39.",
+      "recipe": {
+        "root": "Q611644",
+        "default_depth": 1,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P106"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 10,
+          "min_support": 5,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    },
+    {
+      "id": "popes",
+      "title": "05 · Popes by office · P39",
+      "priority": "supporting",
+      "intent": "Find persons who held the papal office; review encyclicals, letters and pontifical texts with their issuing authority.",
+      "risk": "P39 completeness varies; official pontiff lists in Kristal must remain the authority roster. Pope office does not imply individual authorship of every signed text.",
+      "recipe": {
+        "root": "Q19546",
+        "default_depth": 1,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P39"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 10,
+          "min_support": 5,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    },
+    {
+      "id": "aquinas-works",
+      "title": "06 · Works attributed to Thomas Aquinas · P50",
+      "priority": "pilot",
+      "intent": "Prove person-to-work retrieval using an established author Q9438; collect items whose author P50 points to Thomas Aquinas.",
+      "risk": "Only works with structured P50 linking to Q9438 appear. Historical disputed attributions and manuscripts need separate evidence.",
+      "recipe": {
+        "root": "Q9438",
+        "default_depth": 1,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P50"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 10,
+          "min_support": 5,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    },
+    {
+      "id": "augustine-works",
+      "title": "07 · Works attributed to Augustine · P50",
+      "priority": "pilot",
+      "intent": "Second author-to-work sample to validate ancient source coverage and record provenance.",
+      "risk": "Incomplete in Wikidata; multiple early works lack item pages or P50. Attribution and edition must be independently checked.",
+      "recipe": {
+        "root": "Q8018",
+        "default_depth": 1,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P50"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 10,
+          "min_support": 5,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    }
+  ]
+}

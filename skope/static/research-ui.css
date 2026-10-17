@@ -1,0 +1,16 @@
+/* User guide UX-01/05/07/09/12/15/16/17/18: one active research task per workspace. */
+.primary-nav{display:flex;gap:5px;margin-left:clamp(18px,4vw,95px);flex-wrap:wrap}
+.primary-nav button{background:transparent;border:1px solid transparent;font-size:12px;color:#9db6c4;padding:9px 14px}
+.primary-nav button:hover{background:#172736}.primary-nav button.nav-active{border-color:#3c6c65;background:#14302e;color:#baf8e8}
+.research-next{margin:18px 0 6px;border-left:3px solid var(--accent);background:#0d2628;border-radius:4px 9px 9px 4px;padding:15px;max-width:830px}
+.research-next span{font-size:10px;color:#8fc5ba;letter-spacing:.11em;display:block}
+.research-next strong{font-size:16px;display:block;margin:6px 0}.research-next small{font-size:12px;color:var(--muted);display:block}
+.workspace-hero{background:linear-gradient(155deg,#142d30,#101925 65%)}
+.workspace-cards{grid-template-columns:repeat(4,minmax(0,1fr))}
+.workspace-card{padding:16px}
+.workspace-card strong{font-size:14px}
+.workspace-guidance{align-items:start}
+.sidebar section>p.hint{line-height:1.6}
+@media(max-width:1350px){.workspace-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.primary-nav{margin-left:10px}}
+@media(max-width:900px){.primary-nav{margin-left:0}.top{height:auto;min-height:70px;flex-wrap:wrap}.layout{min-height:calc(100vh - 70px)}}
+@media(max-width:550px){.workspace-cards{grid-template-columns:1fr}.primary-nav button{font-size:11px;padding:6px}.home-primary-actions button{flex:1}}

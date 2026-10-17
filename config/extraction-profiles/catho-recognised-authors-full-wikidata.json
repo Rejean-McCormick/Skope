@@ -1,0 +1,70 @@
+{
+  "$comment": "Full source evidence for Catho author-work QID inventory; explicit user consent, immutable provenance.",
+  "format": "skope.extraction-profile/draft-1",
+  "profile_id": "kristal-catho-recognised-authors-full-wikidata",
+  "title": "Catho — Vatican-recognised persons and authored works — full Wikidata records",
+  "target": {
+    "kristal_path": "C:/mycode/Kristal/locals/A-Kristal-Catho",
+    "state_ref": "urn:kristal:state:catho",
+    "write_to_canon": false
+  },
+  "selection": {
+    "source_kind": "existing_skope_qid_inventory",
+    "inventory_record_field": "wikidata_qid",
+    "preserve_exact_inventory": true,
+    "rediscover_scope": false
+  },
+  "source": {
+    "dump_path": "D:/EncyKlopedia/10_sources/wikidata/dumps/current/wikidata-20260922-all.json.bz2",
+    "compact_index_path": "D:/EncyKlopedia/30_working/wikidata/wikidata.compact.sqlite",
+    "existing_fast_index_root": "D:/EncyKlopedia/30_working/wikidata-fast",
+    "verify_dump_identity_from_manifest": "D:/EncyKlopedia/20_evidence/manifests/wikidata-dump-verified.json",
+    "require_verified_source_identity": true,
+    "allow_full_dump_scan": false,
+    "auto_build_new_index": false,
+    "abort_if_no_verified_random_access": true
+  },
+  "extraction": {
+    "mode": "full_source_entity_json",
+    "batch_size": 1000,
+    "workers": 4,
+    "pause_resume": true,
+    "verify_qid_and_sha256": true,
+    "preserve": {
+      "claims": true,
+      "qualifiers": true,
+      "references": true,
+      "ranks": true,
+      "labels": true,
+      "descriptions": true,
+      "aliases": true,
+      "sitelinks": true,
+      "external_identifiers": true,
+      "literal_values": true
+    },
+    "on_missing_qid": "report_and_pause",
+    "output_compression": "gzip-jsonl"
+  },
+  "geography": {
+    "mode": "off",
+    "assume_absent_without_evidence": false
+  },
+  "output": {
+    "scope_key": "catho-recognised-authors",
+    "evidence_root": "D:/EncyKlopedia/20_evidence/scope-snapshots/catho-recognised-authors",
+    "working_root": "D:/EncyKlopedia/30_working/scopes/catho-recognised-authors",
+    "include_snapshot_manifest": true,
+    "include_entity_hashes": true,
+    "include_missing_qid_report": true,
+    "include_geography_coverage_report": true,
+    "no_extra_backup_or_archive": true
+  },
+  "safety": {
+    "minimum_free_space_gib": 20,
+    "read_only_input_index": true,
+    "no_source_deletion": true,
+    "no_kristal_canonical_modification": true,
+    "require_explicit_user_confirmation_before_extraction": true,
+    "require_review_before_kristal_integration": true
+  }
+}

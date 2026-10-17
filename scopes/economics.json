@@ -1,0 +1,81 @@
+{
+  "format": "skope.scope-campaign/1.0",
+  "requires": {
+    "skope_release_minimum": "0.13.20",
+    "backend": "EncyK compact SQLite",
+    "batch_collection_no_geographic_filter": true,
+    "batch_collection_no_external_convergence": true,
+    "preview_cap": 10000
+  },
+  "safety": {
+    "auto_run": false,
+    "write_kristal_canon": false,
+    "write_original_dump": false,
+    "new_fast_index": false,
+    "collect_qid_only": true
+  },
+  "id": "economics",
+  "title": "Kristal-Economics — allocation and models",
+  "target_slug": "kristal-economics",
+  "state_ref": "urn:kristal:state:kristal-economics",
+  "scope_context": "Agents and constraints → incentives, production/transactions and allocation. Wikidata is background evidence, not economic model validation.",
+  "notes": [
+    "P279 subclasses retrieve discipline/concept taxonomy, not all transactions, institutions or economic facts.",
+    "P106 occupation economist returns people described as economists; not a complete register, not model evidence.",
+    "No geographical filter; distinguish theoretical models, empirical claims and explanatory vocabulary."
+  ],
+  "passes": [
+    {
+      "id": "discipline-concepts",
+      "title": "01 · Discipline concepts · P279 (recommended)",
+      "priority": "recommended",
+      "intent": "Map economics Q8134 subdisciplines and subordinate concepts (subclass taxonomy).",
+      "risk": "Taxonomy can be sparse or noisy; record coverage before considering wider P31/P361 traversals.",
+      "recipe": {
+        "root": "Q8134",
+        "default_depth": 5,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P279"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 10,
+          "min_support": 5,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    },
+    {
+      "id": "economists",
+      "title": "02 · Economists · P106 (separate inventory)",
+      "priority": "supporting",
+      "intent": "Identify people having occupation economist (Q188094) using P106 incoming; keep separate from concepts.",
+      "risk": "Occupation is not a statement of a person’s theoretical views or the reliability of their work.",
+      "recipe": {
+        "root": "Q188094",
+        "default_depth": 1,
+        "branches": {},
+        "direction": "in",
+        "allowed_properties": [
+          "P106"
+        ],
+        "max_entities": 0,
+        "convergence": {
+          "threshold_percent": 12,
+          "min_support": 6,
+          "extra_depth": 0,
+          "include": []
+        },
+        "geography": {
+          "mode": "off"
+        }
+      }
+    }
+  ]
+}
