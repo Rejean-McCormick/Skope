@@ -1,3 +1,13 @@
+# Skope 1.0 RC1 — Skope + EncyK (single code repository)
+
+**This candidate bundles the complete Skope 0.15 Portfolio engine and EncyK 0.14 intake engine.**
+
+**Start:** `Start_Skope.cmd` · **EncyK advanced Manager:** `Start_EncyK_Manager.cmd` (after explicitly approved data junctions).
+
+See [README_FUSION_1_0_FR.md](README_FUSION_1_0_FR.md) for overwrite and safety steps. No data on `D:` is included or migrated.
+
+---
+
 # SKOPE — standalone v0.14.1
 
 Skope explores Wikidata, applies AI-prepared JSON scope recipes, collects QID
@@ -71,3 +81,7 @@ Select the active Kristal and AI-created JSON scopes in the compact sidebar. Use
 ## 0.14.4 — Batch reconciliation and research UX
 
 Primary navigation: Scopes, Identity batches, Graph explorer. Bulk triage ranks local Wikidata candidates without automatically confirming identity. Export a review CSV; documentary confirmation requires evidence and an explicit atomic batch approval. See `RELEASE_0_14_4.md`.
+
+## 0.15.0-alpha.1 — Native Kristal portfolio enrichment
+
+Run `python -m skope portfolio --help` for native v11 portfolio inventory, resumable Wikidata candidate discovery, opt-in *unverified* draft seeds, human-reviewed identity staging, verified full-source acquisition and non-canonical full statement proposals. Reuses the EncyK index and Skope's existing verified random-access reader, and never mutates Kristal canon. See [`RELEASE_0_15_0_ALPHA1.md`](RELEASE_0_15_0_ALPHA1.md).

@@ -23,7 +23,7 @@ class ServerParityTests(unittest.TestCase):
             with urlopen(addr+'/api/diagnostics/reader') as r:
                 self.assertEqual(r.status,200)
                 result=json.load(r)
-            self.assertEqual(result['server_release'],'0.14.4')
+            self.assertEqual(result['server_release'],'1.0.0-rc.1')
             self.assertEqual(result['process_id'],os.getpid())
             self.assertTrue(result['server_api_source_unchanged'])
             self.assertTrue(result['server_api_module'].endswith('skope/api.py'))
@@ -32,7 +32,7 @@ class ServerParityTests(unittest.TestCase):
             self.assertEqual(result['python'],__import__('sys').executable)
             with urlopen(addr+'/extraction.js') as r:
                 source=r.read().decode()
-                self.assertIn("REQUIRED_RELEASE = '0.14.4'",source)
+                self.assertIn("REQUIRED_RELEASE = '1.0.0-rc.1'",source)
                 self.assertIn('/api/diagnostics/reader',source)
                 self.assertIn('OUTDATED SERVER',source)
     def test_import_cache_mismatch_is_observable_without_mutating_cache(self):
@@ -53,6 +53,6 @@ class ServerParityTests(unittest.TestCase):
         self.assertNotEqual(diag['fast_index_ready'],True)
     def test_origin_not_broadened(self):
         self.assertIn('/api/diagnostics/reader',Path(api.__file__).read_text())
-        self.assertEqual(api.SERVER_RELEASE,'0.14.4')
+        self.assertEqual(api.SERVER_RELEASE,'1.0.0-rc.1')
 
 if __name__=='__main__':unittest.main()

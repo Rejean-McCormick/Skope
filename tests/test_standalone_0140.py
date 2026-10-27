@@ -27,7 +27,7 @@ def recipe(root='Q192154'):
 
 class StandaloneAcceptance(unittest.TestCase):
     def test_code_ownership_is_standalone(self):
-        self.assertEqual(api.SERVER_RELEASE, '0.14.4')
+        self.assertEqual(api.SERVER_RELEASE, '1.0.0-rc.1')
         self.assertEqual(extraction._module(), scope_common)
         self.assertIs(scope_common.fastio, fastio)
         self.assertEqual(scope_profiles.CONFIG, HOME / 'scopes')

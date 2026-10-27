@@ -55,3 +55,9 @@ Pour les 161 identités Catho, utiliser **Identity batches → Load reviews → 
 Les rapports Skope résident exclusivement sous `D:\EncyKlopedia\30_working\skope-reconciliation\<job>`. Aucun dépôt EncyK ou LevelUpDiag n'est modifié.
 
 Documentation détaillée : `RELEASE_0_14_4.md`.
+
+## v0.15.0-alpha.1 — Enrichissement natif de portefeuilles Kristal
+
+Skope possède maintenant `skope portfolio` : inventaire d'archives Kristal v11, découverte de QID/PID dans l'index EncyK, suggestions de brouillon explicitement non vérifiées, CSV de revue, récupération des fiches Wikidata complètes depuis la source vérifiée et propositions de faits par namespace KQ/KP. Les `A-Kristal` sont exclus de l'appariement automatique.
+
+Ce module est **intégré à Skope**, pas au pont séparé. Le lanceur Windows `Run_Portfolio_Prepare.cmd` lance la première recherche en lot. Le canon reste inchangé. Voir [RELEASE_0_15_0_ALPHA1.md](RELEASE_0_15_0_ALPHA1.md) pour les commandes PowerShell de bout en bout et les limites.

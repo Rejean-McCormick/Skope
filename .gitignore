@@ -7,3 +7,16 @@ logs/
 .DS_Store
 config/kristals.local.json
 config/kristals.local.json.tmp
+
+# Native portfolio working outputs
+portfolio-work/
+
+# Unified EncyK runtime data (code, schemas and seed inputs are versioned)
+encyk/10_sources/wikidata/dumps/
+encyk/10_sources/lexical/
+encyk/20_evidence/
+encyk/30_working/
+encyk/90_runtime/
+encyk/*.sqlite
+encyk/**/*.sqlite
+encyk/**/*.db

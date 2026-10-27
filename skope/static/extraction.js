@@ -3,7 +3,7 @@
   const $ = id => document.getElementById(id);
   let check = null, job = null, busy = false, timer = null;
   const list = $('extract-profile'), source = $('extract-source');
-  const REQUIRED_RELEASE = '0.14.4';
+  const REQUIRED_RELEASE = '1.0.0-rc.1';
   const setSummary = text => { $('extract-summary').textContent = text; };
   const feedback = text => { $('extract-feedback').textContent = text; };
   async function api(path, body) {

@@ -1,0 +1,23 @@
+name: Skope unified code checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lightweight-code-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependencies
+        run: python -m pip install 'pytest>=8,<10' 'jsonschema>=4.23,<5'
+      - name: Skope regression tests (fixtures only)
+        run: python -m pytest -q tests
+      - name: EncyK focused contract tests (fixtures only)
+        run: python -m pytest -q encyk/00_system/integrations/tests encyk/00_system/tools/data_cleaner/tests encyk/00_system/tools/migration/tests encyk/00_system/tools/wikidata-manager/tests

@@ -15,7 +15,7 @@ if errorlevel 1 (
   echo Exploration can still run, but verified random access will be blocked.
 )
 pushd "%SKOPE_HOME%"
-echo [SKOPE] Standalone 0.14.4 on http://127.0.0.1:8767
+echo [SKOPE] Unified 1.0.0-rc.1 on http://127.0.0.1:8767
 echo [SKOPE] Scope library: %SKOPE_HOME%scopes
 echo [SKOPE] Wikidata SQLite is read-only. D: evidence stays where it is.
 "%PY%" -u -m skope serve --db "D:\EncyKlopedia\30_working\wikidata\wikidata.compact.sqlite" %*

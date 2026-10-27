@@ -48,8 +48,8 @@ class WorkspaceOverlayTests(unittest.TestCase):
         self.assertIn('workspace-ui.js',self.html)
         self.assertIn("'/workspace-ui.js'",Path(api.__file__).read_text())
         self.assertIn("'/workspace-ui.css'",Path(api.__file__).read_text())
-        self.assertEqual(api.SERVER_RELEASE,'0.14.4')
-        self.assertIn("REQUIRED_RELEASE = '0.14.4'",(STATIC/'extraction.js').read_text())
+        self.assertEqual(api.SERVER_RELEASE,'1.0.0-rc.1')
+        self.assertIn("REQUIRED_RELEASE = '1.0.0-rc.1'",(STATIC/'extraction.js').read_text())
     def test_http_serves_new_assets_without_broadening_file_access(self):
         with tempfile.TemporaryDirectory() as tmp:
             App = type('WorkspaceUIApp', (api.App,), {'db_path':str(Path(tmp)/'wikidata.compact.sqlite')})

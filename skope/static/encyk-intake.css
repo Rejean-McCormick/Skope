@@ -1,0 +1,6 @@
+#encyk-intake-panel { margin-top: 1rem; border-top: 1px solid #52627355; padding-top: .65rem; }
+#encyk-intake-panel label { display: block; margin-top: .6rem; }
+#encyk-intake-panel .encyk-warning { font-size: .85em; line-height: 1.5; }
+#encyk-intake-panel .encyk-action { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .5rem; }
+#encyk-intake-panel input[type='text'] { width: 100%; min-width: 0; box-sizing: border-box; }
+#encyk-intake-panel input[type='checkbox'] { margin-right: .3rem; }

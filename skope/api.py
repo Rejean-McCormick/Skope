@@ -12,8 +12,9 @@ from .scope import branches_for_root,explore,validate_recipe
 from .export import bundle
 from . import massive,extraction,scope_profiles,author_campaign,reconciliation,reconciliation_batch
 from .kristal_registry import KristalRegistry
+from . import encyk_fusion
 DEFAULT_PORT=8767
-SERVER_RELEASE="0.14.4"
+SERVER_RELEASE="1.0.0-rc.1"
 API_SOURCE_AT_IMPORT=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
 
 STATIC=Path(__file__).parent/'static'
@@ -69,6 +70,8 @@ class App(BaseHTTPRequestHandler):
         route=urlparse(self.path);args=parse_qs(route.query)
         try:
             if route.path.startswith('/api/'):
+                if route.path=='/api/encyk/status':
+                    return self.send_data(200,encyk_fusion.status())
                 if route.path=='/api/diagnostics/reader':
                     return self.send_data(200,extraction.runtime_reader_diagnosis(self.db_path))
                 if route.path=='/api/kristals':
@@ -127,7 +130,7 @@ class App(BaseHTTPRequestHandler):
                 return self.send_data(200,out)
             page='/index.html' if route.path=='/' else route.path
             # fixed whitelist, no arbitrary filesystem navigation
-            if page not in ('/index.html','/app.js','/style.css','/wizard.js','/wizard.css','/results.js','/results.css','/extraction.js','/extraction.css','/author-campaign.js','/density.js','/workspace-ui.js','/workspace-ui.css','/reconciliation.js','/reconciliation.css','/reconciliation-batch.js','/reconciliation-batch.css','/research-ui.js','/research-ui.css'):return self.send_data(404,{'error':'not_found'})
+            if page not in ('/index.html','/app.js','/style.css','/wizard.js','/wizard.css','/results.js','/results.css','/extraction.js','/extraction.css','/author-campaign.js','/density.js','/workspace-ui.js','/workspace-ui.css','/reconciliation.js','/reconciliation.css','/reconciliation-batch.js','/reconciliation-batch.css','/research-ui.js','/research-ui.css','/encyk-intake.js','/encyk-intake.css'):return self.send_data(404,{'error':'not_found'})
             path=STATIC/page[1:]
             return self.send_data(200,path.read_bytes(),mimetypes.guess_type(path)[0] or 'application/octet-stream')
         except (ValueError,TypeError) as e:self.send_data(400,{'error':str(e)})
@@ -135,11 +138,19 @@ class App(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self._check_host() or not self._check_origin():return self.send_data(403,{'error':'same_origin_required'})
         route=urlparse(self.path).path
-        if route not in ('/api/preview','/api/export','/api/large/start','/api/large/pause','/api/large/open','/api/large/copy','/api/extract/preflight','/api/extract/start','/api/extract/pause','/api/extract/open','/api/author-campaign/start','/api/author-campaign/pause','/api/author-campaign/resume','/api/scopes/open-folder','/api/kristals/select','/api/kristals/add','/api/reconciliation/decision','/api/reconciliation/batch/start','/api/reconciliation/batch/stage','/api/reconciliation/batch/validate-reviewed','/api/reconciliation/batch/confirm-reviewed'):return self.send_data(404,{'error':'not_found'})
+        if route not in ('/api/preview','/api/export','/api/large/start','/api/large/pause','/api/large/open','/api/large/copy','/api/extract/preflight','/api/extract/start','/api/extract/pause','/api/extract/open','/api/author-campaign/start','/api/author-campaign/pause','/api/author-campaign/resume','/api/scopes/open-folder','/api/kristals/select','/api/kristals/add','/api/reconciliation/decision','/api/reconciliation/batch/start','/api/reconciliation/batch/stage','/api/reconciliation/batch/validate-reviewed','/api/reconciliation/batch/confirm-reviewed','/api/encyk/pull'):return self.send_data(404,{'error':'not_found'})
         try:
             length=int(self.headers.get('Content-Length','0'))
             if length<=0 or length>65536:return self.send_data(413,{'error':'payload_too_large_or_empty'})
             data=json.loads(self.rfile.read(length))
+            if route=='/api/encyk/pull':
+                # Explicit interactive import only; legacy CLI routes retain their existing behavior.
+                if not self.headers.get('Origin') or 'application/json' not in self.headers.get('Content-Type',''):
+                    return self.send_data(403,{'error':'json_same_origin_required'})
+                if not isinstance(data,dict) or data.get('confirmed') is not True:
+                    return self.send_data(400,{'error':'explicit_confirmation_required'})
+                receipt=encyk_fusion.pull_completed_job(data.get('job'), confirmed=True, port=self.server.server_port)
+                return self.send_data(200,receipt)
             if route=='/api/reconciliation/batch/validate-reviewed':
                 return self.send_data(200,reconciliation_batch.validate_reviewed_csv(self.db_path,
                     data.get('job'),data.get('csv')))

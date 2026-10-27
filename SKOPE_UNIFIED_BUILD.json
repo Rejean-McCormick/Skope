@@ -1,0 +1,16 @@
+{
+  "candidate": "skope-1.0.0-rc.1",
+  "built_utc": "2026-10-27T01:10:17.859317+00:00",
+  "skope_baseline": "0.15.0-alpha.1",
+  "encyk_baseline": "0.14.0",
+  "code_only": true,
+  "data_root": "D:/EncyKlopedia",
+  "data_included": false,
+  "data_migrated": false,
+  "github_modified": false,
+  "windows_live_data_qualified": false,
+  "contracts": [
+    "encyk.skope-pull/1.0",
+    "encyk.source-evidence-handoff/2.0.0"
+  ]
+}

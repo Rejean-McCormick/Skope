@@ -27,7 +27,7 @@ class ConsolidatedUI(unittest.TestCase):
                         'extract-profile','extract-preflight','extract-start','extract-modal','extract-progress','extract-open'):
             self.assertIn(element,tree.ids)
         script_names=[x for x in tree.scripts if x]
-        self.assertEqual(script_names,['/density.js','/app.js','/author-campaign.js','/wizard.js','/results.js','/extraction.js','/workspace-ui.js','/reconciliation.js','/reconciliation-batch.js','/research-ui.js'])
+        self.assertEqual(script_names,['/density.js','/app.js','/author-campaign.js','/wizard.js','/results.js','/extraction.js','/workspace-ui.js','/reconciliation.js','/reconciliation-batch.js','/research-ui.js','/encyk-intake.js'])
     def test_app_uses_density_and_resumes_job_by_state_not_translated_button(self):
         js=(ROOT/'app.js').read_text(encoding='utf8')
         self.assertIn('window.SkopeDensity.render(report,root)',js)

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Skope · Standalone Scope Library</title><link rel="stylesheet" href="/style.css"/><link rel="stylesheet" href="/wizard.css"/><link rel="stylesheet" href="/results.css"/><link rel="stylesheet" href="/extraction.css"/><link rel="stylesheet" href="/workspace-ui.css"/><link rel="stylesheet" href="/reconciliation.css"/><link rel="stylesheet" href="/reconciliation-batch.css"/><link rel="stylesheet" href="/research-ui.css"/></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Skope · Standalone Scope Library</title><link rel="stylesheet" href="/style.css"/><link rel="stylesheet" href="/wizard.css"/><link rel="stylesheet" href="/results.css"/><link rel="stylesheet" href="/extraction.css"/><link rel="stylesheet" href="/workspace-ui.css"/><link rel="stylesheet" href="/reconciliation.css"/><link rel="stylesheet" href="/reconciliation-batch.css"/><link rel="stylesheet" href="/research-ui.css"/><link rel="stylesheet" href="/encyk-intake.css"/></head><body>
 <header class="top"><div class="mark">◈</div><div><strong>SKOPE</strong><small><span id="skope-release-label">Standalone Skope</span></small></div><nav class="primary-nav" aria-label="Primary workspaces">
  <button type="button" id="nav-scopes" class="nav-active">Scopes</button>
  <button type="button" id="nav-identities">Identity batches</button>
@@ -87,6 +87,19 @@
 </section>
 </div></details>
 <div class="actions"><button id="preview" class="primary">↻ Calculate scope</button><button id="export" class="secondary">↓ Export Skope proposal</button><div id="status" aria-live="polite"></div></div>
+<details id="encyk-intake-panel" class="sidebar-accordion">
+  <summary><span class="accordion-title">03 · EncyK Intake</span><span class="accordion-sub">Validated source inventory · manual admission</span></summary>
+  <div class="accordion-body">
+    <p class="encyk-warning">EncyK 0.14.0 is now a bundled module. A Skope QID inventory is <strong>noncanonical</strong>; this action does not freeze a scope, send sources to Médiathèque or write Kristal.</p>
+    <div class="encyk-action"><button id="encyk-intake-refresh" type="button">Check EncyK engine</button></div>
+    <label for="encyk-intake-job">Completed Skope inventory job (32 lowercase hex characters)</label>
+    <input id="encyk-intake-job" type="text" maxlength="32" spellcheck="false" autocomplete="off" placeholder="32-character job ID" />
+    <label><input id="encyk-intake-confirm" type="checkbox" />I explicitly authorize import of this completed job into noncanonical EncyK intake on D:</label>
+    <div class="encyk-action"><button id="encyk-intake-pull" type="button" disabled>Import completed QID ZIP</button></div>
+    <p id="encyk-intake-status" class="hint" role="status" aria-live="polite">Read-only status pending.</p>
+    <p class="encyk-warning">For full acquisition and Médiathèque handoff workflows, open the preserved EncyK Manager with <code>Start_EncyK_Manager.cmd</code>. No automatic activation.</p>
+  </div>
+</details>
 </aside><section class="workspace-home" aria-labelledby="workspace-home-title">
   <div class="workspace-hero">
     <div class="eyebrow">RESEARCH WORKFLOW · SKOPE STANDALONE</div>
@@ -245,4 +258,4 @@
   <div id="wizard-view" class="wizard-content" aria-live="polite"></div>
   <div class="wizard-foot"><span id="wizard-status" role="status" aria-live="polite">Ready — no changes made.</span><div class="wizard-foot-buttons"><button id="wizard-prev" type="button">← Back</button><button id="wizard-next" class="primary" type="button">Next →</button></div></div>
 </div></dialog>
-<script src="/density.js"></script><script src="/app.js"></script><script src="/author-campaign.js"></script><script src="/wizard.js"></script><script src="/results.js"></script><script src="/extraction.js"></script><script src="/workspace-ui.js"></script><script src="/reconciliation.js"></script><script src="/reconciliation-batch.js"></script><script src="/research-ui.js"></script></body></html>
+<script src="/density.js"></script><script src="/app.js"></script><script src="/author-campaign.js"></script><script src="/wizard.js"></script><script src="/results.js"></script><script src="/extraction.js"></script><script src="/workspace-ui.js"></script><script src="/reconciliation.js"></script><script src="/reconciliation-batch.js"></script><script src="/research-ui.js"></script><script src="/encyk-intake.js"></script></body></html>
