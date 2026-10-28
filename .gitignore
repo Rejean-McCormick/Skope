@@ -20,3 +20,5 @@ encyk/90_runtime/
 encyk/*.sqlite
 encyk/**/*.sqlite
 encyk/**/*.db
+ZmartZnap.pyw
+GitSink.bat
