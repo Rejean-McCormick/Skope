@@ -1,3 +1,7 @@
+> **Historical migration note (Skope 0.2 / pre-fusion).** This file documents a previous EncyK/Arketype transition and its historical assumptions. It is **not** current setup guidance for Skope `1.0.0-rc.1`. For the present unified code layout, data boundaries and EncyK Intake see [UNIFIED_1_0_OPERATIONS.md](UNIFIED_1_0_OPERATIONS.md), [the root README](../README.md) and `SKOPE_UNIFIED_BUILD.json`. The original content is preserved below for traceability.
+
+---
+
 # Intégration — Skope 0.2 → EncyK, Arketype 1.4
 
 ## Ce qui a été migré
